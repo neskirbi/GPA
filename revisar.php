@@ -88,62 +88,6 @@
           //Obtener fecha y hora
           $fecha = date("Y-m-d");
           $hora = date("H:i:s", time());
-
-          if(!empty($_GET['movil']))
-          {
-            $usu1 = $_GET['movil'];
-            $dni = $_GET['dni'];
-            $usu = $_GET['nombre'];
-
-            //se crea una cookie usuario e id
-            setcookie("ref",$usu1,time()+86400,"/");
-            setcookie("login",$usu,time()+86400,"/");
-            setcookie("dni",$dni,time()+86400,"/");
-            setcookie("activo",$usu,time()+86400,"/");
-            setcookie("movil",$usu1,time()+86400,"/");
-
-            $ajuste = "style='width: 35%; height: 90px;'";
-            $ajuste2 = "data-width='48' data-height='48'";
-          }
-          else
-          {
-            if(!isset($_COOKIE["login"]))
-            {  
-              include("login/loginuser.php"); 
-            }
-            $usu = $_COOKIE['login'];
-            $dni = $_COOKIE['dni'];
-          }
-
-          if(isset($_COOKIE["movil"]))
-          { 
-            if($_COOKIE["movil"] == "si")
-            {
-              $ajuste = "style='width: 35%; height: 90px;'";
-              $ajuste2 = "data-width='48' data-height='48'";
-            }
-            else
-            {
-              $ajuste = "style='width: 40%; height: 90px;'";
-              $ajuste2 = "data-width='60' data-height='60'";
-            }
-
-          }
-          else
-          {
-            $ajuste = "style='width: 40%; height: 90px;'";
-            $ajuste2 = "data-width='60' data-height='60'";
-          }
-
-          //$pass = obtener_password($usu, $conexion);
-          //$json = obtener_usuario($usu, $conexion);
-
-          /*for ($i=0; $i < count($json); $i++) 
-          {
-            $foto_usu = "fotos/".$json[$i]['foto'];
-            $pass = $json[$i]['pass'];
-          }*/
-
           $foto_usu = "imagen/usuario2.png";
           $icon_usuario = $foto_usu;
 
@@ -166,10 +110,8 @@
           
 
           $dia = getDia($fecha);
-          //$count_rutas = rutas_ejecucion($conexion, date("Y-n-d"), $dia);
 
-          //$noti = notificacion($fecha);
-          //$noti = notificacion("2018-01-18");
+          
         ?>
         <div class="wrapper">
 
@@ -196,58 +138,7 @@
                     </div>
 
                     <div class="navbar-custom-menu">
-                        <ul class="nav navbar-nav">
-                      
-                            <!-- User Account: style can be found in dropdown.less -->
-                            <!--Usuario quien ingreso al admin-->
-                            <li class="dropdown user user-menu">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="display: flex;">
-              <?php
-                echo "<div style='width: 30px; '>
-                      <img  class='clipin' style='
-                          height: 17px;
-                          width: 17px;
-                          background-repeat: no-repeat;
-                          background-position: 50%;
-                          border-radius: 50%;
-                          background-size: 100% auto;
-                          background-image: url(".$foto_usu.");'>
-                      </div>";
-              ?>
-              <span class="hidden-xs"><?php echo $_COOKIE['login']; ?></span>
-            </a>
-                                <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header">
-                                        <?php
-                  echo "<img  class='clipin' style='
-                            height: 95px;
-                            width: 95px;
-                            background-repeat: no-repeat;
-                            background-position: 50%;
-                            border-radius: 50%;
-                            background-size: 100% auto;
-                            background-image: url(".$foto_usu.");'>";
-                ?>
-
-                                            <p>
-                                                <?php echo ucfirst($_COOKIE['login']); ?>
-                                                    <small><?php echo date("d-M-Y")."<br>".$hora; ?></small>
-                                            </p>
-                                    </li>
-                                    <!-- Menu Footer-->
-                                    <li class="user-footer">
-                                        <div class="pull-right">
-                                            <a href="login/salir.php" class="btn btn-default btn-flat">Cerrar Sesi&oacute;n</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                            <!-- Control Sidebar Toggle Button 
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>-->
-                        </ul>
+                        
                     </div>
                 </nav>
             </header>
@@ -278,34 +169,7 @@
                     </div>
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">
-                        <li class="header">Nominas</li>
-                          <li class="active treeview">
-                             <a href="index.php">
-                                <i class="ion ion-flag"></i> <span>Confirmar Asistencia</span>
-                                <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
-            </span>
-                            </a>
-                        </li>
-                    
-                        <?php
-
-            if($_COOKIE['ref'] != 6)
-            {
-              echo "  <li class='treeview'>
-                        <a href='pages/asistencia.php'>
-                          <i class='ion ion-android-clipboard'></i> <span>Asistencia</span>
-                        </a>
-                      </li>";
-            }
-            
-          ?>
-
-            <li class='treeview'>
-                    <a href='pages/periodo_consulta.php'>
-                      <i class="fa fa-users" aria-hidden="true"></i> <span>Nomina</span>
-                    </a>
-                  </li>
+                        
                   </ul>
                 </section>
                 <!-- /.sidebar -->
@@ -364,7 +228,7 @@
         <div class="box box-primary" style='height:100%; width:100%;'>
             <div class="box-header with-border">
                 <h3 class="box-title">Confirmar Asistencias &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php  date("Y-n-d"); ?> 
-				  <button style="position: absolute; right: 50px;" class="btn btn-adn btn-flat" onClick="enviarasistencia()">Confirmar asistenia de todos</button>
+				  <!--<button style="position: absolute; right: 50px;" class="btn btn-adn btn-flat" onClick="enviarasistencia()">Confirmar asistenia de todos</button>-->
 				</h3>
 			
 						
@@ -388,8 +252,8 @@
                     <tbody>
                         <?php 
 					
-                $users= getUsers();
-				asistenciac();
+                $users= GetUsersTodos();
+				//asistenciac();
 				for($i=0;$i<count($users);$i++)
         {
           ?>
@@ -411,87 +275,36 @@
             </td>
                 
             <td>
-              <button id="t<?php $users[$i]['id']?>" onClick= "enviarMensaje(<?php echo $users[$i]['id']?>)" class="btn btn-primary btn-flat">Enviar</button></td>
+              <!--<button id="t<?php $users[$i]['id']?>" onClick= "enviarMensaje(<?php echo $users[$i]['id']?>)" class="btn btn-primary btn-flat">Enviar</button></td>-->
             
             <td>
                 <?php
                 $acta=json_decode($users[$i]['actas'],true); 
                 $actas_status=json_decode($users[$i]['actas_status'],true); 
-                if(!isset($acta['1'])){
-                    ?>
-                    <img src="imagen/uploadfile.png" title="Subir Acta" id="img1<?php echo $users[$i]['id'];?>" onclick="Cargar('file1<?php echo $users[$i]['id'];?>');" style="cursor: pointer;" width="30px">
-                    <?php
-                }else{
-                    if(isset($actas_status['1'])){
-                      if($actas_status['1']=='0'){
-                      ?>                    
-                      <img src="imagen/filetache.jpg" title="<?php echo $actas_status['comentario1'];?>" id="img1<?php echo $users[$i]['id'];?>" data-toggle="modal" data-target="#RechazarModal" onclick="IniciarModalRechazo(<?php echo $users[$i]['id'];?>,1,'<?php echo $actas_status['comentario1'];?>','<?php echo $acta['1'];?>');" style="cursor: pointer;" width="30px">
-                      <?php
-                        }else{
-                          ?>                    
+                if(isset($acta['1'])){
+                    ?>                    
                           <img src="imagen/fileclip.png" title="<?php echo $acta['1'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['1'];?>');" style="cursor: pointer;" width="30px">
                           <?php
-                        }
-                      }else{
-                        ?>                    
-                        <img src="imagen/fileclip.png" title="<?php echo $acta['1'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['1'];?>');" style="cursor: pointer;" width="30px">
-                        <?php
-                      }
-                    
                 }
 
-                if(!isset($acta['2'])){
-                    ?>
-                    <img src="imagen/uploadfile.png" title="Subir Acta" id="img2<?php echo $users[$i]['id'];?>" onclick="Cargar('file2<?php echo $users[$i]['id'];?>');" style="cursor: pointer;" width="30px">
+                if(isset($acta['2'])){
+                    ?>                    
+                    <img src="imagen/fileclip.png" title="<?php echo $acta['2'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['2'];?>');" style="cursor: pointer;" width="30px">
                     <?php
-                }else{
-                    if(isset($actas_status['2'])){
-                      if($actas_status['2']=='0'){
-                      ?>                    
-                      <img src="imagen/filetache.jpg" title="<?php echo $actas_status['comentario2'];?>" id="img2<?php echo $users[$i]['id'];?>" data-toggle="modal" data-target="#RechazarModal" onclick="IniciarModalRechazo(<?php echo $users[$i]['id'];?>,2,'<?php echo $actas_status['comentario2'];?>','<?php echo $acta['2'];?>');" style="cursor: pointer;" width="30px">
-                      <?php
-                        }else{
-                          ?>                    
-                          <img src="imagen/fileclip.png" title="<?php echo $acta['2'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['2'];?>');" style="cursor: pointer;" width="30px">
-                          <?php
-                        }
-                      }else{
-                        ?>                    
-                        <img src="imagen/fileclip.png" title="<?php echo $acta['2'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['2'];?>');" style="cursor: pointer;" width="30px">
-                        <?php
-                      }
-                    
                 }
 
-                if(!isset($acta['3'])){
-                    ?>
-                    <img src="imagen/uploadfile.png" title="Subir Acta" id="img3<?php echo $users[$i]['id'];?>" onclick="Cargar('file3<?php echo $users[$i]['id'];?>');" style="cursor: pointer;" width="30px">
-                    <?php
-                }else{
-                    if(isset($actas_status['3'])){
-                      if($actas_status['3']=='0'){
-                      ?>                    
-                      <img src="imagen/filetache.jpg" title="<?php echo $actas_status['comentario3'];?>" id="img3<?php echo $users[$i]['id'];?>" data-toggle="modal" data-target="#RechazarModal" onclick="IniciarModalRechazo(<?php echo $users[$i]['id'];?>,3,'<?php echo $actas_status['comentario3'];?>','<?php echo $acta['3'];?>');" style="cursor: pointer;" width="30px">
-                      <?php
-                        }else{
-                          ?>                    
-                          <img src="imagen/fileclip.png" title="<?php echo $acta['3'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['3'];?>');" style="cursor: pointer;" width="30px">
-                          <?php
-                        }
-                      }else{
-                        ?>                    
+                if(isset($acta['3'])){
+                    ?>                    
                         <img src="imagen/fileclip.png" title="<?php echo $acta['3'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['3'];?>');" style="cursor: pointer;" width="30px">
                         <?php
-                      }
-                    
                 }
                 
                 ?>
-              <div id="content-files">
+              <!--<div id="content-files">
                 <input type="file" style="visibility:hidden;" onchange="CargarActas('<?php echo $users[$i]['id'];?>',this,1);" id="file1<?php echo $users[$i]['id'];?>">
                 <input type="file" style="visibility:hidden;" onchange="CargarActas('<?php echo $users[$i]['id'];?>',this,2);" id="file2<?php echo $users[$i]['id'];?>">
                 <input type="file" style="visibility:hidden;" onchange="CargarActas('<?php echo $users[$i]['id'];?>',this,3);" id="file3<?php echo $users[$i]['id'];?>">
-              </div>
+              </div>-->
               
               
             </td>

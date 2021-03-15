@@ -247,6 +247,34 @@ function getUsers()
     return $resultado;
 }
 
+function GetUsersTodos()
+{
+   include "conexion/conexion.php";
+   $dnir = trim($_COOKIE['dni']);
+   $dnifin = trim($dnir);
+    $resultado=array();
+    $sql="SELECT actas,actas_status,Id_usuario as id, us_nombre_real, ucfdi, us_apellidos as ciudad,
+	us_direccion as mensaje, Id_ruta as ruta 
+	from usuarionom ";
+	
+   $result= odbc_exec($conexion, $sql);
+    $i=0;
+	//echo $result;   
+	
+   while($row= odbc_fetch_object($result))
+    {
+        $resultado[$i]['id']=$row->id;
+        $resultado[$i]['nombre']= utf8_encode($row->us_nombre_real);
+        $resultado[$i]['ciudad']=$row->ciudad;
+        $resultado[$i]['mensaje']=$row->mensaje;
+        $resultado[$i]['ruta']=$row->ucfdi;
+		$resultado[$i]['actas']=$row->actas;
+		$resultado[$i]['actas_status']=$row->actas_status;
+        $i++;
+    }
+    return $resultado;
+}
+
 function getSupervisores(){
     include "conexion/conexion.php";
     $resultado=array();
