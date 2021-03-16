@@ -417,74 +417,38 @@
                 <?php
                 $acta=json_decode($users[$i]['actas'],true); 
                 $actas_status=json_decode($users[$i]['actas_status'],true); 
-                if(!isset($acta['1'])){
-                    ?>
-                    <img src="imagen/uploadfile.png" title="Subir Acta" id="img1<?php echo $users[$i]['id'];?>" onclick="Cargar('file1<?php echo $users[$i]['id'];?>');" style="cursor: pointer;" width="30px">
-                    <?php
-                }else{
-                    if(isset($actas_status['1'])){
-                      if($actas_status['1']=='0'){
-                      ?>                    
-                      <img src="imagen/filetache.jpg" title="<?php echo $actas_status['comentario1'];?>" id="img1<?php echo $users[$i]['id'];?>" data-toggle="modal" data-target="#RechazarModal" onclick="IniciarModalRechazo(<?php echo $users[$i]['id'];?>,1,'<?php echo $actas_status['comentario1'];?>','<?php echo $acta['1'];?>');" style="cursor: pointer;" width="30px">
-                      <?php
-                        }else{
-                          ?>                    
-                          <img src="imagen/fileclip.png" title="<?php echo $acta['1'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['1'];?>');" style="cursor: pointer;" width="30px">
-                          <?php
-                        }
-                      }else{
-                        ?>                    
-                        <img src="imagen/fileclip.png" title="<?php echo $acta['1'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['1'];?>');" style="cursor: pointer;" width="30px">
-                        <?php
-                      }
-                    
-                }
+                $actas_comentarios=json_decode($users[$i]['actas_comentarios'],true); 
 
-                if(!isset($acta['2'])){
-                    ?>
-                    <img src="imagen/uploadfile.png" title="Subir Acta" id="img2<?php echo $users[$i]['id'];?>" onclick="Cargar('file2<?php echo $users[$i]['id'];?>');" style="cursor: pointer;" width="30px">
-                    <?php
-                }else{
-                    if(isset($actas_status['2'])){
-                      if($actas_status['2']=='0'){
-                      ?>                    
-                      <img src="imagen/filetache.jpg" title="<?php echo $actas_status['comentario2'];?>" id="img2<?php echo $users[$i]['id'];?>" data-toggle="modal" data-target="#RechazarModal" onclick="IniciarModalRechazo(<?php echo $users[$i]['id'];?>,2,'<?php echo $actas_status['comentario2'];?>','<?php echo $acta['2'];?>');" style="cursor: pointer;" width="30px">
-                      <?php
-                        }else{
-                          ?>                    
-                          <img src="imagen/fileclip.png" title="<?php echo $acta['2'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['2'];?>');" style="cursor: pointer;" width="30px">
-                          <?php
-                        }
-                      }else{
-                        ?>                    
-                        <img src="imagen/fileclip.png" title="<?php echo $acta['2'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['2'];?>');" style="cursor: pointer;" width="30px">
+                for($ele=1;$ele<=3;$ele++){
+                    if(!isset($acta[$ele])){
+                        ?>
+                        <img src="imagen/uploadfile.png" title="Subir Acta" id="img<?php echo $ele.$users[$i]['id'];?>" onclick="Cargar('file<?php echo $ele.$users[$i]['id'];?>');" style="cursor: pointer;" width="30px">
                         <?php
-                      }
-                    
-                }
+                    }else{
+                        if(isset($actas_status[$ele])){
+                          if(@$actas_status[$ele]['cap']=='0' || @$actas_status[$ele]['leg']=='0'){
 
-                if(!isset($acta['3'])){
-                    ?>
-                    <img src="imagen/uploadfile.png" title="Subir Acta" id="img3<?php echo $users[$i]['id'];?>" onclick="Cargar('file3<?php echo $users[$i]['id'];?>');" style="cursor: pointer;" width="30px">
-                    <?php
-                }else{
-                    if(isset($actas_status['3'])){
-                      if($actas_status['3']=='0'){
-                      ?>                    
-                      <img src="imagen/filetache.jpg" title="<?php echo $actas_status['comentario3'];?>" id="img3<?php echo $users[$i]['id'];?>" data-toggle="modal" data-target="#RechazarModal" onclick="IniciarModalRechazo(<?php echo $users[$i]['id'];?>,3,'<?php echo $actas_status['comentario3'];?>','<?php echo $acta['3'];?>');" style="cursor: pointer;" width="30px">
-                      <?php
-                        }else{
-                          ?>                    
-                          <img src="imagen/fileclip.png" title="<?php echo $acta['3'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['3'];?>');" style="cursor: pointer;" width="30px">
+                          $title=@$actas_comentarios[$ele]['cap']."\n".@$actas_comentarios[$ele]['leg'];
+                          $texto=@$actas_comentarios[$ele]['cap']."<br>".@$actas_comentarios[$ele]['leg'];      
+                          ?>           
+                          <img src="imagen/filetache.jpg" title="<?php echo $title;?>" id="img<?php echo $ele.$users[$i]['id'];?>" data-toggle="modal" data-target="#RechazarModal" onclick="IniciarModalRechazo(<?php echo $users[$i]['id'];?>,<?php echo $ele; ?>,'<?php echo $texto;?>','<?php echo $acta[$ele];?>');" style="cursor: pointer;" width="30px">
                           <?php
-                        }
-                      }else{
-                        ?>                    
-                        <img src="imagen/fileclip.png" title="<?php echo $acta['3'];?>" id="img1<?php echo $users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta['3'];?>');" style="cursor: pointer;" width="30px">
-                        <?php
-                      }
-                    
+                            }else{
+                              ?>                    
+                              <img src="imagen/fileclip.png" title="<?php echo $acta[$ele];?>" id="img<?php echo $ele.$users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta[$ele];?>');" style="cursor: pointer;" width="30px">
+                              <?php
+                            }
+                          }else{
+                            ?>                    
+                            <img src="imagen/fileclip.png" title="<?php echo $acta[$ele];?>" id="img<?php echo $ele.$users[$i]['id'];?>" onclick="DescargarActa('<?php echo $acta[$ele];?>');" style="cursor: pointer;" width="30px">
+                            <?php
+                          }
+                        
+                    }
                 }
+              
+
+                
                 
                 ?>
               <div id="content-files">

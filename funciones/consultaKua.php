@@ -226,7 +226,7 @@ function getUsers()
    $dnir = trim($_COOKIE['dni']);
    $dnifin = trim($dnir);
     $resultado=array();
-    $sql="SELECT actas,actas_status,Id_usuario as id, us_nombre_real, ucfdi, us_apellidos as ciudad,us_direccion as mensaje, Id_ruta as ruta 
+    $sql="SELECT actas,actas_status,actas_comentarios,Id_usuario as id, us_nombre_real, ucfdi, us_apellidos as ciudad,us_direccion as mensaje, Id_ruta as ruta 
 	from usuarionom where us_direccion = '$dnifin'";
 	
    $result= odbc_exec($conexion, $sql);
@@ -242,6 +242,8 @@ function getUsers()
         $resultado[$i]['ruta']=$row->ucfdi;
 		$resultado[$i]['actas']=$row->actas;
 		$resultado[$i]['actas_status']=$row->actas_status;
+		$resultado[$i]['actas_comentarios']=$row->actas_comentarios;
+
         $i++;
     }
     return $resultado;
@@ -253,7 +255,7 @@ function GetUsersTodos()
    $dnir = trim($_COOKIE['dni']);
    $dnifin = trim($dnir);
     $resultado=array();
-    $sql="SELECT actas,actas_status,Id_usuario as id, us_nombre_real, ucfdi, us_apellidos as ciudad,
+    $sql="SELECT actas,actas_status,actas_comentarios,Id_usuario as id, us_nombre_real, ucfdi, us_apellidos as ciudad,
 	us_direccion as mensaje, Id_ruta as ruta 
 	from usuarionom ";
 	
@@ -270,6 +272,7 @@ function GetUsersTodos()
         $resultado[$i]['ruta']=$row->ucfdi;
 		$resultado[$i]['actas']=$row->actas;
 		$resultado[$i]['actas_status']=$row->actas_status;
+		$resultado[$i]['actas_comentarios']=$row->actas_comentarios;
         $i++;
     }
     return $resultado;
